@@ -15,7 +15,7 @@ Simple keypad to control Sonicake Pocketmaster multi effect processor via BLE MI
 - <driver/rtc_io.h> (To be able to completely switch-off the simple red LED on the Super Mini board during deep sleep)
 
 **DESCRIPTION**
-<br>Uses a capacitive pin of the ESP32 board to wake-up and go to deep sleep. After wake-up, BLE MIDI is initialized and start scanning for compatible devices. It connects to the first found BLE MIDI device. Then, use the 12 capacitive pads to control various features of Pocketmaster, refer to the table below.
+<br>Uses a capacitive pin of the ESP32 board to wake-up and go to deep sleep. After wake-up, BLE MIDI is initialized and start scanning for compatible devices. This is indicated by a blue LED slowly flashing. The keypad connects to the first found BLE MIDI device. After connecting, the blue LED is off and you can use the 12 capacitive pads to control various features of Pocketmaster, refer to the table below.
 
 | Button | Action  | Function                                      |
 |--------|---------|-----------------------------------------------|
