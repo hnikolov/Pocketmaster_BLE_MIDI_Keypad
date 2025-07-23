@@ -15,6 +15,10 @@ CRGB leds[NUM_LEDS];
 
 void go_to_sleep()
 {
+  leds[0] = CRGB::Green;
+  FastLED.show();
+  delay(500); 
+
   FastLED.setBrightness(0);
   leds[0] = CRGB::Black;
   FastLED.show();
@@ -31,7 +35,8 @@ void go_to_sleep()
 bool touch1detected = false;
 void gotTouch1() { touch1detected = true; }
 
-uint8_t i = 0;
+bool isConnected = false;
+uint32_t tryConnect = 0;
 
 uint32_t tick1 = millis();
 uint32_t tick2 = millis();
@@ -47,27 +52,19 @@ void tick_timing()
       if( touchInterruptGetLastStatus(T8) ) { Serial.println(" --- T8 Touched"); }
       else                                  { go_to_sleep(); } // Serial.println(" --- T8 Released"); 
     }
+
+    if( !isConnected )
+    {
+      if( tryConnect > 30000 ) // Go to sleep if not connected in 30 seconds
+      {
+        tryConnect = 0;
+        go_to_sleep(); 
+      }
+      tryConnect += (millis() - tick1);
+    }
+
     tick1 = millis(); // Start new waiting period
 	}
-
-  // // TODO: Should be replaced by handling buttons pressed
-  // if( millis() - tick2 > 1000 ) // Test: send MIDI periodically
-  // {
-  //   if( BLEMidiClient.isConnected() )
-  //   {
-  //     leds[0] = CRGB::DarkBlue;
-  //     FastLED.show();
-
-  //     Serial.println("Sending a MIDI command");
-  //     midi_commands[i++]();
-  //     if( i == 36 ) { i = 0; }
-
-  //     delay(20);
-  //     leds[0] = CRGB::Black;
-  //     FastLED.show();      
-  //   }    
-  //   tick2 = millis(); // Start new waiting period
-  // }
 
 	if( millis() - tick3 > 3000 )
 	{
@@ -86,12 +83,13 @@ void tick_timing()
       {
         if(BLEMidiClient.connect(0)) { Serial.println("Connection established"); }
         else                         { Serial.println("Connection failed");      }
+        isConnected = true;
       }
+      isConnected = false;
     }    
     tick3 = millis(); // Start new waiting period
 	}
 }
-
 
 void setup()
 {

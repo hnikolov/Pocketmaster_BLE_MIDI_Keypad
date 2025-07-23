@@ -199,44 +199,8 @@ void vol_upd(int8_t val)
   }
 }
 
-void(*midi_commands[]) (void) = 
-{
-  bank_dec,
-  bank_inc,
-  preset_dec,
-  preset_inc,
-  nr_off,
-  nr_on,
-  fx1_off,
-  fx1_on,
-  drv_off,
-  drv_on,
-  amp_off,
-  amp_on,
-  ir_off,
-  ir_on,
-  eq_off,
-  eq_on,
-  fx2_off,
-  fx2_on,
-  dly_off,
-  dly_on,
-  rvb_off,
-  rvb_on,
-  tuner_on,
-  tuner_off,
-  looper_on,
-  looper_pre,
-  looper_post,
-  looper_rec,
-  looper_play,
-  looper_stop,
-  looper_del,
-  looper_off,
-  drum_menu_on,
-  drum_play,
-  drum_stop,
-  drum_menu_off
-};
+// Example of array of functions and the respective calls
+// void(*midi_commands[]) (void) = { bank_dec, bank_inc };
+// midi_commands[1]();
 
 #endif // _MIDI_COMMANDS_H_
