@@ -10,7 +10,8 @@
 #define THRESHOLD 500  // Lower the value, more the sensitivity
 #endif
 
-touch_pad_t touchPin;
+//touch_pad_t touchPin;
+int touchPin;
 
 // Method to print the reason by which ESP32 has been awaken from sleep
 void print_wakeup_reason()

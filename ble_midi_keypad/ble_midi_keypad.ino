@@ -25,7 +25,7 @@ void go_to_sleep()
 
   digitalWrite(DATA_PIN, LOW);         // To completely
   delay(10);                           // switch-off the
-  gpio_deep_sleep_hold_en();           // red LED
+  gpio_deep_sleep_hold_en();           // onboard red LED
   gpio_hold_en((gpio_num_t) DATA_PIN); // during deep sleep
 
   Serial.println("Going to sleep now");
@@ -34,9 +34,6 @@ void go_to_sleep()
 
 bool touch1detected = false;
 void gotTouch1() { touch1detected = true; }
-
-bool isConnected = false;
-uint32_t tryConnect = 0;
 
 uint32_t tick1 = millis();
 uint32_t tick2 = millis();
@@ -52,17 +49,6 @@ void tick_timing()
       if( touchInterruptGetLastStatus(T8) ) { Serial.println(" --- T8 Touched"); }
       else                                  { go_to_sleep(); } // Serial.println(" --- T8 Released"); 
     }
-
-    if( !isConnected )
-    {
-      if( tryConnect > 30000 ) // Go to sleep if not connected in 30 seconds
-      {
-        tryConnect = 0;
-        go_to_sleep(); 
-      }
-      tryConnect += (millis() - tick1);
-    }
-
     tick1 = millis(); // Start new waiting period
 	}
 
@@ -83,9 +69,7 @@ void tick_timing()
       {
         if(BLEMidiClient.connect(0)) { Serial.println("Connection established"); }
         else                         { Serial.println("Connection failed");      }
-        isConnected = true;
       }
-      isConnected = false;
     }    
     tick3 = millis(); // Start new waiting period
 	}
