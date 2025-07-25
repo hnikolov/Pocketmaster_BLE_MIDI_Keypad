@@ -7,16 +7,16 @@ Simple keypad to control Sonicake Pocketmaster multi effect processor via BLE MI
 - LiPo battery, 3.7V
 
 **LIBRARIES USED**
-- ESP32 v3.1.3           (https://github.com/espressif/arduino-esp32) *
+- ESP32 v3.1.3           (https://github.com/espressif/arduino-esp32) *Note
 - ESP32-BLE-MIDI         (https://github.com/max22-/ESP32-BLE-MIDI)
-- NimBLE-Arduino v1.4.3  (https://github.com/h2zero/NimBLE-Arduino) *
+- NimBLE-Arduino v1.4.2  (https://github.com/h2zero/NimBLE-Arduino) *Note
 - r89m Buttons           (https://github.com/r89m/Button)
 - r89m MPR121Button      (https://github.com/r89m/MPR121Button)
-- Adafruit_MPR121 v1.1.3 (https://github.com/adafruit/Adafruit_MPR121_Library) *
+- Adafruit_MPR121 v1.1.3 (https://github.com/adafruit/Adafruit_MPR121_Library) *Note
 - FastLED                (https://github.com/FastLED/FastLED)
 - <driver/rtc_io.h>      (To be able to completely switch-off the simple red LED on the Super Mini board during deep sleep)
 
-**Note:** Something broke when using newer versions of the libraries and stopped working. Did not have time to debug.
+***Note:** Something broke when using newer versions of the libraries and stopped working. Did not have time to debug.
 
 **DESCRIPTION**
 <br>Uses a capacitive pin of the ESP32 board to wake-up and go to deep sleep. After wake-up, BLE MIDI is initialized and start scanning for compatible devices. This is indicated by a blue LED slowly flashing. The keypad connects to the first found BLE MIDI device. After connecting, the blue LED is off and you can use the 12 capacitive pads to control various features of Pocketmaster, refer to the table below.
